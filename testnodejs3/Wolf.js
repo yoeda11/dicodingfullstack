@@ -1,6 +1,6 @@
 class Wolf {
     constructor() {
-        this.strength = Math.floor(Math.randam() * 100);
+        this.strength = Math.floor(Math.random() * 100);
 
     }
 
@@ -12,5 +12,6 @@ class Wolf {
 }
 
 // TODO 2
+// module.exports = { Wolf }
 
-
+module.exports = Wolf;
