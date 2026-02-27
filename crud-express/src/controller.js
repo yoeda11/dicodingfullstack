@@ -2,12 +2,12 @@ import {nanoid} from "nanoid";
 import notes from "./notes.js";
 
 export const createNote = (req, res, next) => {
-    const {title = 'untitled', tag, body} = req.body;
+    const {title = 'untitled', tags, body} = req.body;
     const id = nanoid(16);
 const createdAt = new Date().toISOString();
-const updateAt = createdAt;
+const updatedAt = createdAt;
 
-    const newNote = {title, tags, body, id, createdAt, updateAt};
+    const newNote = {title, tags, body, id, createdAt, updatedAt};
     notes.push(newNote);
 
     const isSuccess = notes.filter((note) => note.id === id).length > 0;
@@ -23,11 +23,34 @@ const updateAt = createdAt;
 
     return res.status(500).json({
         status: 'fail',
-        message: 'Catatan gagal ditambahkan'
+        message: 'Catatan gagal ditambahkan',
     });
 
 };
 
+
+export const getNotes = (req, res) => {
+    return res.json({
+        status: 'success',
+        data: { notes }
+    });
+};
+
+
+export const getNoteById = (req, res) => {
+    const { id } = req.params;
+  const note = notes.find((n) => n.id === id);
+  if (note) {
+    return res.json({
+      status: 'success',
+      data: { note }
+    });
+  }
+  return res.status(404).json({
+    status: 'fail',
+    message: 'Catatan tidak ditemukan'
+  });
+};
 
 
 
