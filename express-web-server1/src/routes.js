@@ -1,0 +1,31 @@
+import express from "express";
+
+const router = express.Router();
+
+router.get('', (_, res) => {
+    res.send('Homepage');
+});
+
+router.get('/about', (_, res) => {
+    res.send('About Page')
+});
+
+
+router.all('/', (_, res) => {
+    res.status(405).send('Halaman tidak dapat diakses dengan method tersebut');
+});
+
+router.all('/about', (_, res) => {
+    res.status(405).send('Halaman tidak dapat diakses dengan method tersebut');
+});
+
+router.use((_, res) => {
+    res.send('Halaman tidak ditemukan');
+});
+
+
+export default router;
+
+
+
+
